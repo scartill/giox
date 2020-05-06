@@ -2,12 +2,9 @@ package material
 
 import (
 	"fmt"
-	"image"
 
 	"gioui.org/layout"
-	"gioui.org/io/pointer"
 	"gioui.org/unit"
-	"gioui.org/op"
 	giomat "gioui.org/widget/material"
 	"github.com/scartill/giox"
 )
@@ -29,36 +26,41 @@ func Combo(theme *giomat.Theme, size unit.Value) ComboStyle {
 // Layout a combobox
 func (c ComboStyle) Layout(gtx *layout.Context, widget *giox.Combo) {
 
-	for _, e := range gtx.Events(widget) {
-		if e, ok := e.(pointer.Event); ok {
-			if e.Type == pointer.Press {
-				widget.Toggle()
-			}
-		}
-	}
-
+	subwidgets := make([]layout.FlexChild, 0)
 	if !widget.IsExpanded() {
+		for widget.SelectButton().Clicked(gtx) {
+			widget.Toggle()
+		}
+
 		text := fmt.Sprintf("<%s>", widget.Hint())
 
 		if widget.HasSelected() {
 			text = widget.SelectedText()
 		}
 
-		giomat.Label(c.theme, c.size, text).Layout(gtx)
-
+		subwidgets = append(subwidgets, RigidButton(gtx, c.theme, text, widget.SelectButton()))
 	} else {
-		items := widget.Items()
-		labels := make([]layout.FlexChild, len(items))
-		for i, val := range items {
-			labels[i] = RigidLabel(gtx, c.theme, val)
+		N := widget.Len()
+		for i := 0; i < N; i++ {
+			for widget.Button(i).Clicked(gtx) {
+				if err := widget.SelectIndex(i); err != nil {
+					fmt.Println("giox error: bad index")
+				}
+				widget.Toggle()
+			}
 		}
-		layout.Flex{Axis: layout.Vertical}.Layout(gtx, labels...)
+		
+		for i := 0; i < N; i++ {
+			subwidgets = append(subwidgets, RigidButton(gtx, c.theme, widget.Item(i), widget.Button(i)))
+		}
+	}
+	
+	var inset float32 = 0.0
+	if widget.IsExpanded() {
+		inset = 10
 	}
 
-	var st op.StackOp
-	st.Push(gtx.Ops)
-	clickRect := image.Rectangle{Max: gtx.Dimensions.Size}
-	pointer.Rect(clickRect).Add(gtx.Ops)
-	pointer.InputOp{Key: widget}.Add(gtx.Ops)
-	st.Pop()
+	layout.Inset{Left: unit.Dp(inset)}.Layout(gtx, func() {
+		layout.Flex{Axis: layout.Vertical}.Layout(gtx, subwidgets...)
+	})
 }

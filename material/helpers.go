@@ -30,7 +30,7 @@ func RigidButton(gtx *layout.Context, th *giomat.Theme, caption string, button *
     inset := layout.UniformInset(unit.Dp(3))
     return layout.Rigid(func() {
         inset.Layout(gtx, func() {
-            giomat.Button(th, "Connect").Layout(gtx, button)
+            giomat.Button(th, caption).Layout(gtx, button)
         })
     })
 }

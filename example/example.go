@@ -5,6 +5,7 @@ import (
 	"gioui.org/io/system"
 	"gioui.org/layout"
 	"gioui.org/unit"
+	"gioui.org/widget"
 	"gioui.org/widget/material"
 	"gioui.org/font/gofont"
 	
@@ -14,6 +15,8 @@ import (
 
 var (
 	combo giox.Combo
+	comboSelectButton widget.Button
+	comboUnselectButton widget.Button
 )
 
 func main() {
@@ -51,11 +54,25 @@ func loop(w *app.Window) error {
 
 func mainWindow(gtx *layout.Context, th *material.Theme) {
 
+	for comboSelectButton.Clicked(gtx) {
+		combo.SelectItem("Option B")
+	}
+
+	for comboUnselectButton.Clicked(gtx) {
+		combo.Unselect()
+	}
+
 	children := []layout.FlexChild {
 		xmat.RigidSection(gtx, th, "giox Example"),
 		layout.Rigid(func() {
 			xmat.Combo(th, unit.Px(16)).Layout(gtx, &combo)
 		}),
+		xmat.RigidButton(gtx, th, "Force select Option B", &comboSelectButton),
+		xmat.RigidButton(gtx, th, "Unselect", &comboUnselectButton),
+	}
+
+	if combo.HasSelected() {
+		children = append(children, xmat.RigidLabel(gtx, th, combo.SelectedText()))
 	}
 
 	layout.W.Layout(gtx, func() {
