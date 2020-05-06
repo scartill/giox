@@ -4,21 +4,33 @@ import (
 	"gioui.org/app"
 	"gioui.org/io/system"
 	"gioui.org/layout"
+	"gioui.org/unit"
 	"gioui.org/widget/material"
 	"gioui.org/font/gofont"
 	
+	"github.com/scartill/giox"
 	xmat "github.com/scartill/giox/material"
 )
 
-func mainWindow(gtx *layout.Context, th *material.Theme) {
+var (
+	combo giox.Combo
+)
 
-	children := []layout.FlexChild {
-		xmat.RigidSection(gtx, th, "giox Examples"),
+func main() {
+	combo = giox.MakeCombo(
+		[]string {
+			"Option A",
+			"Option B",
+		},
+		"select an option")
+
+	run := func() {
+		w := app.NewWindow()
+		loop(w)
 	}
 
-	layout.W.Layout(gtx, func() {
-		layout.Flex{Axis: layout.Horizontal}.Layout(gtx, children...)
-	})
+	go run()
+	app.Main()
 }
 
 func loop(w *app.Window) error {
@@ -37,12 +49,16 @@ func loop(w *app.Window) error {
 	return nil
 }
 
-func main() {
-	run := func() {
-		w := app.NewWindow()
-		loop(w)
+func mainWindow(gtx *layout.Context, th *material.Theme) {
+
+	children := []layout.FlexChild {
+		xmat.RigidSection(gtx, th, "giox Example"),
+		layout.Rigid(func() {
+			xmat.Combo(th, unit.Px(16)).Layout(gtx, &combo)
+		}),
 	}
 
-	go run()
-	app.Main()
+	layout.W.Layout(gtx, func() {
+		layout.Flex{Axis: layout.Vertical}.Layout(gtx, children...)
+	})
 }
