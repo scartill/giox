@@ -4,7 +4,6 @@ import (
 	"gioui.org/app"
 	"gioui.org/io/system"
 	"gioui.org/layout"
-	"gioui.org/unit"
 	"gioui.org/widget"
 	"gioui.org/widget/material"
 	"gioui.org/font/gofont"
@@ -65,7 +64,7 @@ func mainWindow(gtx *layout.Context, th *material.Theme) {
 	children := []layout.FlexChild {
 		xmat.RigidSection(gtx, th, "giox Example"),
 		layout.Rigid(func() {
-			xmat.Combo(th, unit.Px(16)).Layout(gtx, &combo)
+			xmat.Combo(th).Layout(gtx, &combo)
 		}),
 		xmat.RigidButton(gtx, th, "Force select Option B", &comboSelectButton),
 		xmat.RigidButton(gtx, th, "Unselect", &comboUnselectButton),
