@@ -11,15 +11,13 @@ import (
 
 // ComboStyle holds combobox rendering parameters
 type ComboStyle struct {
-	size unit.Value
 	theme *giomat.Theme
 }
 
 // Combo constructs c ComboStyle
-func Combo(theme *giomat.Theme, size unit.Value) ComboStyle {
+func Combo(theme *giomat.Theme) ComboStyle {
 	return ComboStyle{
 		theme: theme,
-		size: size,
 	}
 }
 
