@@ -14,6 +14,7 @@ import (
 
 var (
 	editor widget.Editor
+	checkbox widget.Bool
 	combo giox.Combo
 	comboSelectButton widget.Button
 	comboUnselectButton widget.Button
@@ -65,6 +66,7 @@ func mainWindow(gtx *layout.Context, th *material.Theme) {
 	children := []layout.FlexChild {
 		xmat.RigidSection(gtx, th, "giox Example"),
 		xmat.RigidEditor(gtx, th, "Editor example", "<Insert some text here>", &editor),
+		xmat.RigidCheckBox(gtx, th, "Checkbox example", &checkbox),
 		layout.Rigid(func() {
 			xmat.Combo(th).Layout(gtx, &combo)
 		}),

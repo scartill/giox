@@ -55,3 +55,10 @@ func RigidLabel(gtx *layout.Context, th *giomat.Theme, caption string) layout.Fl
         giomat.Label(th, unit.Px(16), caption).Layout(gtx)
     })
 }
+
+// RigidCheckBox returns layout function for a regular checkbox
+func RigidCheckBox(gtx *layout.Context, th *giomat.Theme, label string, checkbox *widget.Bool) layout.FlexChild {
+    return layout.Rigid(func() {
+            giomat.CheckBox(th, label).Layout(gtx, checkbox)
+    })
+}
