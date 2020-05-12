@@ -1,6 +1,8 @@
 package material
 
 import (
+    "image/color"
+
     "gioui.org/layout"
     "gioui.org/unit"
     "gioui.org/widget"
@@ -9,6 +11,8 @@ import (
 
 // RigidEditor returns layout function for labeled edit field
 func RigidEditor(gtx *layout.Context, th *giomat.Theme, caption string, hint string, editor *widget.Editor) layout.FlexChild {
+    editorStyle := giomat.Editor(th, hint)
+   editorStyle.Color = color.RGBA{R:0, G:0, B:255, A:255}
     return layout.Rigid(func() {
         inset := layout.UniformInset(unit.Dp(3))
         layout.Flex{Axis: layout.Horizontal}.Layout(gtx,
@@ -19,7 +23,7 @@ func RigidEditor(gtx *layout.Context, th *giomat.Theme, caption string, hint str
             }),
             layout.Rigid(func() {
                 inset.Layout(gtx, func() {
-                    giomat.Editor(th, hint).Layout(gtx, editor)
+                    editorStyle.Layout(gtx, editor)
                 })
             }))
     })
