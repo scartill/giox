@@ -8,22 +8,22 @@ import (
 
 // Combo holds combobox state
 type Combo struct {
-	items    []string
-	hint string
-	selected int
-	expanded bool
-	selectButton widget.Button
-	buttons []widget.Button
+	items        []string
+	hint         string
+	selected     int
+	expanded     bool
+	selectButton widget.Clickable
+	buttons      []widget.Clickable
 }
 
 // MakeCombo Creates new combobox widget
 func MakeCombo(items []string, hint string) Combo {
 	c := Combo{
 		items:    items,
-		hint: hint,
+		hint:     hint,
 		selected: -1,
 		expanded: false,
-		buttons: make([]widget.Button, len(items)),
+		buttons:  make([]widget.Clickable, len(items)),
 	}
 
 	return c
@@ -66,12 +66,12 @@ func (c *Combo) Item(index int) string {
 }
 
 // SelectButton returns a points to main (open) combobox button
-func (c *Combo) SelectButton() *widget.Button {
+func (c *Combo) SelectButton() *widget.Clickable {
 	return &c.selectButton
 }
 
 // Button returns a pointer to correspoding button widget
-func (c *Combo) Button(index int) *widget.Button {
+func (c *Combo) Button(index int) *widget.Clickable {
 	return &(c.buttons[index])
 }
 

@@ -1,64 +1,65 @@
 package material
 
 import (
-    "image/color"
+	"image/color"
 
-    "gioui.org/layout"
-    "gioui.org/unit"
-    "gioui.org/widget"
-    giomat "gioui.org/widget/material"
+	"gioui.org/layout"
+	l "gioui.org/layout"
+	"gioui.org/unit"
+	"gioui.org/widget"
+	giomat "gioui.org/widget/material"
 )
 
 // RigidEditor returns layout function for labeled edit field
-func RigidEditor(gtx *layout.Context, th *giomat.Theme, caption string, hint string, editor *widget.Editor) layout.FlexChild {
-    editorStyle := giomat.Editor(th, hint)
-   editorStyle.Color = color.RGBA{R:0, G:0, B:255, A:255}
-    return layout.Rigid(func() {
-        inset := layout.UniformInset(unit.Dp(3))
-        layout.Flex{Axis: layout.Horizontal}.Layout(gtx,
-            layout.Rigid(func() {
-                inset.Layout(gtx, func() {
-                    giomat.Label(th, unit.Px(16), caption).Layout(gtx)
-                })
-            }),
-            layout.Rigid(func() {
-                inset.Layout(gtx, func() {
-                    editorStyle.Layout(gtx, editor)
-                })
-            }))
-    })
+func RigidEditor(th *giomat.Theme, caption string, hint string, editor *widget.Editor) l.FlexChild {
+	editorStyle := giomat.Editor(th, editor, hint)
+	editorStyle.Color = color.RGBA{R: 0, G: 0, B: 255, A: 255}
+	return l.Rigid(func(gtx l.Context) l.Dimensions {
+		inset := l.UniformInset(unit.Dp(3))
+		return l.Flex{Axis: l.Horizontal}.Layout(gtx,
+			l.Rigid(func(gtx l.Context) l.Dimensions {
+				return inset.Layout(gtx, func(l.Context) l.Dimensions {
+					return giomat.Label(th, unit.Px(16), caption).Layout(gtx)
+				})
+			}),
+			l.Rigid(func(gtx l.Context) l.Dimensions {
+				return inset.Layout(gtx, func(gtx l.Context) l.Dimensions {
+					return editorStyle.Layout(gtx)
+				})
+			}))
+	})
 }
 
 // RigidButton returns layout function for a button with inset
-func RigidButton(gtx *layout.Context, th *giomat.Theme, caption string, button *widget.Button) layout.FlexChild {
-    inset := layout.UniformInset(unit.Dp(3))
-    return layout.Rigid(func() {
-        inset.Layout(gtx, func() {
-            giomat.Button(th, caption).Layout(gtx, button)
-        })
-    })
+func RigidButton(th *giomat.Theme, caption string, button *widget.Clickable) l.FlexChild {
+	inset := l.UniformInset(unit.Dp(3))
+	return l.Rigid(func(gtx l.Context) l.Dimensions {
+		return inset.Layout(gtx, func(gtx l.Context) l.Dimensions {
+			return giomat.Button(th, button, caption).Layout(gtx)
+		})
+	})
 }
 
 // RigidSection returns layout function for a form heading
-func RigidSection(gtx *layout.Context, th *giomat.Theme, caption string) layout.FlexChild {
-    inset := layout.UniformInset(unit.Dp(3))
-    return layout.Rigid(func() {
-        inset.Layout(gtx, func() {
-            giomat.H5(th, caption).Layout(gtx)
-        })
-    })
+func RigidSection(th *giomat.Theme, caption string) l.FlexChild {
+	inset := l.UniformInset(unit.Dp(3))
+	return l.Rigid(func(gtx l.Context) l.Dimensions {
+		return inset.Layout(gtx, func(gtx l.Context) l.Dimensions {
+			return giomat.H5(th, caption).Layout(gtx)
+		})
+	})
 }
 
 // RigidLabel returns layout function for a regular label
-func RigidLabel(gtx *layout.Context, th *giomat.Theme, caption string) layout.FlexChild {
-    return layout.Rigid(func() {
-        giomat.Label(th, unit.Px(16), caption).Layout(gtx)
-    })
+func RigidLabel(th *giomat.Theme, caption string) l.FlexChild {
+	return layout.Rigid(func(gtx l.Context) l.Dimensions {
+		return giomat.Label(th, unit.Px(16), caption).Layout(gtx)
+	})
 }
 
 // RigidCheckBox returns layout function for a regular checkbox
-func RigidCheckBox(gtx *layout.Context, th *giomat.Theme, label string, checkbox *widget.Bool) layout.FlexChild {
-    return layout.Rigid(func() {
-            giomat.CheckBox(th, label).Layout(gtx, checkbox)
-    })
+func RigidCheckBox(th *giomat.Theme, label string, checkbox *widget.Bool) l.FlexChild {
+	return layout.Rigid(func(gtx l.Context) l.Dimensions {
+		return giomat.CheckBox(th, checkbox, label).Layout(gtx)
+	})
 }
