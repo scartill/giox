@@ -8,6 +8,7 @@ import (
 	"gioui.org/unit"
 	"gioui.org/widget"
 	giomat "gioui.org/widget/material"
+	"github.com/scartill/giox"
 )
 
 // RigidEditor returns layout function for labeled edit field
@@ -19,7 +20,7 @@ func RigidEditor(th *giomat.Theme, caption string, hint string, editor *widget.E
 		return l.Flex{Axis: l.Horizontal}.Layout(gtx,
 			l.Rigid(func(gtx l.Context) l.Dimensions {
 				return inset.Layout(gtx, func(l.Context) l.Dimensions {
-					return giomat.Label(th, unit.Px(16), caption).Layout(gtx)
+					return giomat.Label(th, unit.Px(14), caption).Layout(gtx)
 				})
 			}),
 			l.Rigid(func(gtx l.Context) l.Dimensions {
@@ -61,5 +62,12 @@ func RigidLabel(th *giomat.Theme, caption string) l.FlexChild {
 func RigidCheckBox(th *giomat.Theme, label string, checkbox *widget.Bool) l.FlexChild {
 	return layout.Rigid(func(gtx l.Context) l.Dimensions {
 		return giomat.CheckBox(th, checkbox, label).Layout(gtx)
+	})
+}
+
+// RigidSeparator returns layout function for a regular separator
+func RigidSeparator(th *giomat.Theme, separator *giox.Separator) l.FlexChild {
+	return l.Rigid(func(gtx l.Context) l.Dimensions {
+		return Separator(th, &giox.Separator{}).Layout(gtx)
 	})
 }

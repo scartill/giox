@@ -74,6 +74,7 @@ func mainWindow(gtx l.Context, th *material.Theme) {
 		l.Rigid(func(gtx l.Context) l.Dimensions {
 			return xmat.Combo(th, &combo).Layout(gtx)
 		}),
+		xmat.RigidSeparator(th, &giox.Separator{}),
 		xmat.RigidButton(th, "Force select Option B", &comboSelectButton),
 		xmat.RigidButton(th, "Unselect", &comboUnselectButton),
 		xmat.RigidLabel(th, strconv.FormatBool(checkbox.Value)),
