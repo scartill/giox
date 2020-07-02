@@ -2,6 +2,7 @@ package main
 
 import (
 	"strconv"
+	"os"
 
 	"gioui.org/app"
 	"gioui.org/font/gofont"
@@ -32,6 +33,7 @@ func main() {
 		"select an option")
 
 	run := func() {
+		defer os.Exit(0)
 		w := app.NewWindow()
 		loop(w)
 	}
