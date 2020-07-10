@@ -67,7 +67,10 @@ func RigidCheckBox(th *giomat.Theme, label string, checkbox *widget.Bool) l.Flex
 
 // RigidSeparator returns layout function for a regular separator
 func RigidSeparator(th *giomat.Theme, separator *giox.Separator) l.FlexChild {
+	inset := l.UniformInset(unit.Dp(4))
 	return l.Rigid(func(gtx l.Context) l.Dimensions {
-		return Separator(th, &giox.Separator{}).Layout(gtx)
+		return inset.Layout(gtx, func(gtx l.Context) l.Dimensions {
+			return Separator(th, &giox.Separator{}).Layout(gtx)
+		})
 	})
 }
