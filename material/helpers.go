@@ -20,7 +20,7 @@ func RigidEditor(th *giomat.Theme, caption string, hint string, editor *widget.E
 		return l.Flex{Axis: l.Horizontal}.Layout(gtx,
 			l.Rigid(func(gtx l.Context) l.Dimensions {
 				return inset.Layout(gtx, func(l.Context) l.Dimensions {
-					return giomat.Label(th, unit.Px(14), caption).Layout(gtx)
+					return giomat.Label(th, unit.Dp(14), caption).Layout(gtx)
 				})
 			}),
 			l.Rigid(func(gtx l.Context) l.Dimensions {
@@ -54,7 +54,7 @@ func RigidSection(th *giomat.Theme, caption string) l.FlexChild {
 // RigidLabel returns layout function for a regular label
 func RigidLabel(th *giomat.Theme, caption string) l.FlexChild {
 	return layout.Rigid(func(gtx l.Context) l.Dimensions {
-		return giomat.Label(th, unit.Px(16), caption).Layout(gtx)
+		return giomat.Label(th, unit.Dp(16), caption).Layout(gtx)
 	})
 }
 
