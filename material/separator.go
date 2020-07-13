@@ -39,9 +39,9 @@ func (ss SeparatorStyle) Layout(gtx l.Context) l.Dimensions {
 			Max: f32.Point{X: float32(d.X), Y: float32(d.Y)},
 		}
 
-		clip.Rect{
+		clip.RRect{
 			Rect: f32.Rectangle{Max: f32.Point{X: width, Y: float32(gtx.Px(height))}},
-		}.Op(gtx.Ops).Add(gtx.Ops)
+		}.Add(gtx.Ops)
 
 		paint.ColorOp{Color: color.RGBA{
 			R: 128, G: 128, B: 128, A: 255,
