@@ -7,7 +7,7 @@ import (
 	l "gioui.org/layout"
 	"gioui.org/unit"
 	giomat "gioui.org/widget/material"
-	"github.com/nkrul/giox"
+	"github.com/scartill/giox"
 )
 
 // ComboStyle holds combobox rendering parameters

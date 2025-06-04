@@ -10,8 +10,8 @@ import (
 	"gioui.org/widget"
 	"gioui.org/widget/material"
 
-	"github.com/nkrul/giox"
-	xmat "github.com/nkrul/giox/material"
+	"github.com/scartill/giox"
+	xmat "github.com/scartill/giox/material"
 )
 
 var (

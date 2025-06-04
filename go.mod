@@ -1,4 +1,4 @@
-module github.com/nkrul/giox
+module github.com/scartill/giox
 
 go 1.23.8
 

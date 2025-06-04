@@ -8,7 +8,7 @@ import (
 	"gioui.org/unit"
 	"gioui.org/widget"
 	giomat "gioui.org/widget/material"
-	"github.com/nkrul/giox"
+	"github.com/scartill/giox"
 )
 
 // RigidEditor returns layout function for labeled edit field
