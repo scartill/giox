@@ -8,19 +8,19 @@ import (
 	"gioui.org/unit"
 	"gioui.org/widget"
 	giomat "gioui.org/widget/material"
-	"github.com/scartill/giox"
+	"github.com/nkrul/giox"
 )
 
 // RigidEditor returns layout function for labeled edit field
 func RigidEditor(th *giomat.Theme, caption string, hint string, editor *widget.Editor) l.FlexChild {
 	editorStyle := giomat.Editor(th, editor, hint)
-	editorStyle.Color = color.RGBA{R: 0, G: 0, B: 255, A: 255}
+	editorStyle.Color = color.NRGBA{R: 0, G: 0, B: 255, A: 255}
 	return l.Rigid(func(gtx l.Context) l.Dimensions {
 		inset := l.UniformInset(unit.Dp(3))
 		return l.Flex{Axis: l.Horizontal}.Layout(gtx,
 			l.Rigid(func(gtx l.Context) l.Dimensions {
 				return inset.Layout(gtx, func(l.Context) l.Dimensions {
-					return giomat.Label(th, unit.Px(14), caption).Layout(gtx)
+					return giomat.Label(th, unit.Sp(14), caption).Layout(gtx)
 				})
 			}),
 			l.Rigid(func(gtx l.Context) l.Dimensions {
@@ -54,7 +54,7 @@ func RigidSection(th *giomat.Theme, caption string) l.FlexChild {
 // RigidLabel returns layout function for a regular label
 func RigidLabel(th *giomat.Theme, caption string) l.FlexChild {
 	return layout.Rigid(func(gtx l.Context) l.Dimensions {
-		return giomat.Label(th, unit.Px(16), caption).Layout(gtx)
+		return giomat.Label(th, unit.Sp(16), caption).Layout(gtx)
 	})
 }
 

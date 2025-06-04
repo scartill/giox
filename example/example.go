@@ -1,18 +1,17 @@
 package main
 
 import (
+	"os"
 	"strconv"
 
 	"gioui.org/app"
-	"gioui.org/font/gofont"
-	"gioui.org/io/system"
 	l "gioui.org/layout"
 	"gioui.org/op"
 	"gioui.org/widget"
 	"gioui.org/widget/material"
 
-	"github.com/scartill/giox"
-	xmat "github.com/scartill/giox/material"
+	"github.com/nkrul/giox"
+	xmat "github.com/nkrul/giox/material"
 )
 
 var (
@@ -32,7 +31,7 @@ func main() {
 		"select an option")
 
 	run := func() {
-		w := app.NewWindow()
+		w := new(app.Window)
 		loop(w)
 	}
 
@@ -41,16 +40,15 @@ func main() {
 }
 
 func loop(w *app.Window) error {
-	th := material.NewTheme(gofont.Collection())
+	th := material.NewTheme()
 
 	var ops op.Ops
 	for {
-		e := <-w.Events()
-		switch e := e.(type) {
-		case system.DestroyEvent:
-			return e.Err
-		case system.FrameEvent:
-			gtx := l.NewContext(&ops, e)
+		switch e := w.Event().(type) {
+		case app.DestroyEvent:
+			os.Exit(0)
+		case app.FrameEvent:
+			gtx := app.NewContext(&ops, e)
 			mainWindow(gtx, th)
 			e.Frame(gtx.Ops)
 		}
@@ -59,11 +57,11 @@ func loop(w *app.Window) error {
 
 func mainWindow(gtx l.Context, th *material.Theme) {
 
-	for comboSelectButton.Clicked() {
+	for comboSelectButton.Clicked(gtx) {
 		combo.SelectItem("Option B")
 	}
 
-	for comboUnselectButton.Clicked() {
+	for comboUnselectButton.Clicked(gtx) {
 		combo.Unselect()
 	}
 
