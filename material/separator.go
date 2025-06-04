@@ -2,13 +2,9 @@ package material
 
 import (
 	"image"
-	"image/color"
 
-	"gioui.org/f32"
 	"gioui.org/layout"
 	l "gioui.org/layout"
-	"gioui.org/op/clip"
-	"gioui.org/op/paint"
 	"gioui.org/unit"
 	giomat "gioui.org/widget/material"
 	"github.com/scartill/giox"
@@ -34,19 +30,7 @@ func (ss SeparatorStyle) Layout(gtx l.Context) l.Dimensions {
 	shader := func(width float32) layout.Dimensions {
 		height := unit.Dp(2)
 
-		d := image.Point{X: int(width), Y: gtx.Px(height)}
-		dr := f32.Rectangle{
-			Max: f32.Point{X: float32(d.X), Y: float32(d.Y)},
-		}
-
-		clip.Rect{
-			Rect: f32.Rectangle{Max: f32.Point{X: width, Y: float32(gtx.Px(height))}},
-		}.Op(gtx.Ops).Add(gtx.Ops)
-
-		paint.ColorOp{Color: color.RGBA{
-			R: 128, G: 128, B: 128, A: 255,
-		}}.Add(gtx.Ops)
-		paint.PaintOp{Rect: dr}.Add(gtx.Ops)
+		d := image.Point{X: int(width), Y: gtx.Dp(height)}
 
 		return layout.Dimensions{Size: d}
 	}

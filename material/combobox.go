@@ -29,7 +29,7 @@ func (c ComboStyle) Layout(gtx l.Context) l.Dimensions {
 
 	subwidgets := make([]l.FlexChild, 0)
 	if !c.widget.IsExpanded() {
-		for c.widget.SelectButton().Clicked() {
+		for c.widget.SelectButton().Clicked(gtx) {
 			c.widget.Toggle()
 		}
 
@@ -43,7 +43,7 @@ func (c ComboStyle) Layout(gtx l.Context) l.Dimensions {
 	} else {
 		N := c.widget.Len()
 		for i := 0; i < N; i++ {
-			for c.widget.Button(i).Clicked() {
+			for c.widget.Button(i).Clicked(gtx) {
 				if err := c.widget.SelectIndex(i); err != nil {
 					fmt.Println("giox error: bad index")
 				}
